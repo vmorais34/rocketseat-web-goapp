@@ -1,4 +1,4 @@
-// import { Toaster } from 'sonner'
+import { Toaster } from 'sonner'
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 import { Room } from "./pages/room"
 import { CreateRoom } from "./pages/create-room"
@@ -17,7 +17,7 @@ export function App() {
   return(
   <>
     <RouterProvider router={router} />
-    {/* <Toaster invert richColors /> */}
+    <Toaster invert richColors />
   </>
   )
 }

@@ -1,9 +1,10 @@
 import { useParams } from "react-router-dom"
 // import { ArrowRight, Share2 } from "lucide-react"
-// import { toast } from "sonner"
 
 import amaLogo from '../assets/ama-logo.svg'
 import { ArrowRight, Share2 } from "lucide-react"
+import { toast } from "sonner"
+import { Message } from "../components/message"
 // import { Message } from "../components/message"
 
 
@@ -11,6 +12,18 @@ export function Room(){
   const { roomId } = useParams()
 
   console.log("params", roomId)
+
+  function handleShareRoom() {
+    const url = window.location.href.toString()
+
+    if(navigator != undefined && navigator.canShare()){
+      navigator.share({ url })
+    } else {
+      navigator.clipboard.writeText(url)
+
+      toast.info("The room URL copied to your clipboard!")
+    }
+  }
 
   return (
     <div className="mx-auto max-w-[640px] flex flex-col gap-6 py-10 px-4">
@@ -23,7 +36,7 @@ export function Room(){
 
         <button 
           type="submit" 
-          // onClick={}
+          onClick={handleShareRoom}
           className="ml-auto bg-zinc-800 text-zinc-300 px-3 py-1.5 gap-1.5 flex items-center rounded-lg font-medium text-sm transition-colors hover:bg-zinc-700"
         >
           Compartilhar
@@ -54,9 +67,9 @@ export function Room(){
       </form>
 
       <ol className="list-decimal list-outside px-3 space-y-8">
-        {/* <Message text="Como funcionam as goroutines em GoLang e por que elas são importantes para a concorrência e paralelismo?" amountOfReactions={100} answered />
+        <Message text="Como funcionam as goroutines em GoLang e por que elas são importantes para a concorrência e paralelismo?" amountOfReactions={100} answered />
         <Message text="Quais são as melhores práticas para organizar o código em um projeto GoLang, incluindo pacotes, módulos e a estrutura de diretórios?" amountOfReactions={50} />
-        <Message text="Como fazer a depuração de programas GoLang e quais ferramentas são recomendadas para isso?" amountOfReactions={10} /> */}
+        <Message text="Como fazer a depuração de programas GoLang e quais ferramentas são recomendadas para isso?" amountOfReactions={10} />
       </ol>
     </div>
   )
